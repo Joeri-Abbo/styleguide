@@ -1,0 +1,36 @@
+version: "3.8"
+volumes:
+  wordpress:
+  db:
+services:
+  react-styleguide:
+    image: react-styleguide
+    ports:
+      - "3000:3000"
+  wordpress-styleguide-cms:
+    image: wordpress-styleguide-cms
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      - WORDPRESS_DB_HOST=db
+      - WORDPRESS_DB_USER=root
+      - WORDPRESS_DB_PASSWORD=super_secret
+      - WORDPRESS_DB_NAME=styleguide
+      - DISABLE_SSL=true
+    volumes:
+      - wordpress:/var/www/html
+  db:
+    image: mariadb:latest
+    ports:
+      - "3306:3306"
+    command: [
+      '--default_authentication_plugin=mysql_native_password',
+      '--character-set-server=utf8mb4',
+      '--collation-server=utf8mb4_unicode_ci'
+    ]
+    volumes:
+      - db:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: styleguide
+      MYSQL_ROOT_PASSWORD: super_secret
