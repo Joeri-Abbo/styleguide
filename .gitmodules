@@ -1,0 +1,6 @@
+[submodule "react-styleguide"]
+	path = react-styleguide
+	url = git@github.com:Joeri-Abbo/react-styleguide.git
+[submodule "wordpress-styleguide-cms"]
+	path = wordpress-styleguide-cms
+	url = git@github.com:Joeri-Abbo/wordpress-styleguide-cms.git
