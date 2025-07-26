@@ -1,23 +1,26 @@
 name: Update module
-on:
-  workflow_dispatch:
+true:
+  workflow_dispatch: null
   repository_dispatch:
     types: update
   schedule:
-    - cron: '0 0 * * *'
+  - cron: 0 0 * * *
 jobs:
   update:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GH_TOKEN }}
-          submodules: recursive
-      - name: Update module
-        run: |
-          git submodule update --init --recursive
-          git submodule foreach --recursive git fetch --all
-          git submodule foreach git reset --hard origin/master
-      - uses: stefanzweifel/git-auto-commit-action@v5.1.0
-        with:
-          commit_message: Updated submodules
+    - uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GH_TOKEN }}
+        submodules: recursive
+    - name: Update module
+      run: 'git submodule update --init --recursive
+
+        git submodule foreach --recursive git fetch --all
+
+        git submodule foreach git reset --hard origin/master
+
+        '
+    - uses: stefanzweifel/git-auto-commit-action@v5.1.0
+      with:
+        commit_message: Updated submodules
